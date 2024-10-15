@@ -3,10 +3,14 @@ var htmlText = `
 <h1>Hello world!!</h1>
 </div>`;
 
+//var innerHtml = document.createElement("div");
+//innerHtml.html(htmlText);
+
 var outer = document.createElement("div");
+outer.html(htmlText);
 var body = document.getElementsByTagName("body");
 body[0].appendChild(outer);
-outer.insertAdjacentElement("afterend", htmlText);
+//outer.insertAdjacentElement("afterend", htmlText);
 function onScanSuccess(decodedText, decodedResult) {
     document.getElementById("barcode").value = decodedText;
     document.getElementById("barcodeSubmit").click();
