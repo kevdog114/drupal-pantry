@@ -1,4 +1,12 @@
+var htmlText = `
+<div>
+<h1>Hello world!!</h1>
+</div>`;
 
+var outer = document.createElement("div");
+var body = document.getElementsByTagName("body");
+body[0].appendChild(outer);
+outer.insertAdjacentElement("afterend", htmlText);
 function onScanSuccess(decodedText, decodedResult) {
     document.getElementById("barcode").value = decodedText;
     document.getElementById("barcodeSubmit").click();
