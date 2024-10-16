@@ -67,7 +67,10 @@ function onScanSuccess(decodedText, decodedResult) {
 document.getElementById("barcodeSubmit").onclick = function() {
   var href = window.location.href;
   var newPath = "/products-by-barcode/" + encodeURI(document.getElementById("barcode").value);
-  window.location.href = href.replace(window.location.pathname, newPath);
+  
+  var l = window.location;
+  //window.location.href = href.replace(window.location.pathname, newPath);
+  window.location.href = l.origin + newPath;
 }
 
 var scanner = new Html5Qrcode("barcode-video", {
