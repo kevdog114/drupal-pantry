@@ -92,9 +92,6 @@ Html5Qrcode.getCameras().then(function(cams) {
   if(previousCamExists)
     select.value = previousCam;
 
-  if(select.value !== null)
-    scanner.start(select.value, undefined, onScanSuccess);
-
   select.onchange = function() {
     var value = select.value;
     localStorage.setItem("barcode-scanner-last-cam", value);
@@ -122,4 +119,7 @@ document.getElementById("closeScanner").onclick = function() {
 document.getElementById("openScanner").onclick = function() {
   var wrapper = document.getElementsByClassName("custom-barcode")[0];
   wrapper.classList.remove("inactive");
+
+  if(select.value !== null)
+    scanner.start(select.value, undefined, onScanSuccess);
 }
