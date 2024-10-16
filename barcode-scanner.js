@@ -83,35 +83,46 @@ function startScanning() {
     scanner.start(select.value, undefined, onScanSuccess);
 }
 
-Html5Qrcode.getCameras().then(function(cams) {
-  var previousCam = localStorage.getItem("barcode-scanner-last-cam");
-  var previousCamExists = false;
-  // id, label
-  var select = document.getElementById("camera-select");
-  for(var i = 0; i < cams.length; i++) {
-    var option = document.createElement("option");
-    option.innerText = cams[i].label;
-    option.value = cams[i].id;
-    if(previousCam !== null && cams[i].id == previousCam)
-      previousCamExists = true;
-
-    select.appendChild(option);
+var discoveredCameras = false;
+function initAndStartScanning() {
+  if(!discoveredCameras)
+  {
+    discoveredCameras = true;
+    Html5Qrcode.getCameras().then(function(cams) {
+      var previousCam = localStorage.getItem("barcode-scanner-last-cam");
+      var previousCamExists = false;
+      // id, label
+      var select = document.getElementById("camera-select");
+      for(var i = 0; i < cams.length; i++) {
+        var option = document.createElement("option");
+        option.innerText = cams[i].label;
+        option.value = cams[i].id;
+        if(previousCam !== null && cams[i].id == previousCam)
+          previousCamExists = true;
+    
+        select.appendChild(option);
+      }
+    
+      if(previousCamExists)
+        select.value = previousCam;
+    
+      select.onchange = function() {
+        var value = select.value;
+        localStorage.setItem("barcode-scanner-last-cam", value);
+        console.log("Select changed", value);
+        if(scanner.isScanning)
+          scanner.stop();
+        startScanning();
+      }
+    }, function() {
+      console.log("Error getting cameras");
+    });
   }
-
-  if(previousCamExists)
-    select.value = previousCam;
-
-  select.onchange = function() {
-    var value = select.value;
-    localStorage.setItem("barcode-scanner-last-cam", value);
-    console.log("Select changed", value);
-    if(scanner.isScanning)
-      scanner.stop();
+  else {
     startScanning();
   }
-}, function() {
-  console.log("Error getting cameras");
-});
+
+}
 
 
 //var scripts = document.getElementsByTagName("script")
@@ -129,5 +140,5 @@ document.getElementById("openScanner").onclick = function() {
   var wrapper = document.getElementsByClassName("custom-barcode")[0];
   wrapper.classList.remove("inactive");
 
-  startScanning();
+  initAndStartScanning();
 }
