@@ -106,6 +106,7 @@ function initAndStartScanning() {
       if(previousCamExists)
         select.value = previousCam;
     
+      startScanning();
       select.onchange = function() {
         var value = select.value;
         localStorage.setItem("barcode-scanner-last-cam", value);
