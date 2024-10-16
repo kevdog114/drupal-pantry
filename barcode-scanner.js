@@ -19,6 +19,14 @@ var htmlText = `
     border-radius: 5px;
     width: 300px;
   }
+
+  .custom-barcode .modal-title h1 {
+    font-size: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    line-height: 20px;
+  }
 </style>
 
 <div class="custom-barcode outer">
@@ -30,7 +38,7 @@ var htmlText = `
       <p>hello world. This is my attempt at a modal</p>
     </div>
     <div class="modal-footer">
-      <button class="modal-action">Close</button>
+      <button class="modal-action mdc-button">Close</button>
     </div>
   </div>
 </div>
