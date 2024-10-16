@@ -1,6 +1,32 @@
 var htmlText = `
 <div class="rootdiv">
-<h1>Hello world!!</h1>
+<style type="text/css">
+  .custom-barcode.outer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000a;
+    z-index: 10000;
+  }
+  
+  .custom-barcode .modal-inner {
+    position: absolute;
+    bottom: 0;
+    left: auto;
+    right: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    width: 300px;
+  }
+</style>
+
+<div class="custom-barcode outer">
+  <div class="modal-inner">
+  <p>hello world. This is my attempt at a modal</p>
+  </div>
+</div>
 </div>`;
 
 var innerHtml = document.createElement("html");
