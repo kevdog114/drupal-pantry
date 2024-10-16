@@ -70,7 +70,7 @@ var scanner = new Html5Qrcode("barcode-video", {
   formatsToSupport: [ 14 ]
 });
 
-scanner.getCameras().then(function(cams) {
+Html5Qrcode.getCameras().then(function(cams) {
   console.log("Cameras detected", cams);
 }, function() {
   console.log("Error getting cameras");
