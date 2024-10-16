@@ -65,7 +65,6 @@ function onScanSuccess(decodedText, decodedResult) {
 
 // 14 is UPC_A
 document.getElementById("barcodeSubmit").onclick = function() {
-  var href = window.location.href;
   var newPath = "/products-by-barcode/" + encodeURI(document.getElementById("barcode").value);
   
   var l = window.location;
@@ -143,3 +142,8 @@ document.getElementById("openScanner").onclick = function() {
 
   initAndStartScanning();
 }
+
+// set focus to input box on page load
+setTimeout(function() {
+  document.getElementById("barcode").focus();
+}, 200);
