@@ -6,10 +6,10 @@ var htmlText = `
 var innerHtml = document.createElement("html");
 innerHtml.innerHTML = htmlText;
 
-var outer = document.createElement("div");
-outer.insertAdjacentElement("afterend", innerHtml.getElementsByClassName("rootdiv")[0]);
+//var outer = document.createElement("div");
+//outer.insertAdjacentElement("afterend", );
 var body = document.getElementsByTagName("body");
-body[0].appendChild(outer);
+body[0].appendChild(innerHtml.getElementsByClassName("rootdiv")[0]);
 //outer.insertAdjacentElement("afterend", htmlText);
 function onScanSuccess(decodedText, decodedResult) {
     document.getElementById("barcode").value = decodedText;
