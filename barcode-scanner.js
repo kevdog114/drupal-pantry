@@ -13,9 +13,8 @@ var htmlText = `
   
   .custom-barcode .modal-inner {
     position: absolute;
-    bottom: 0;
-    left: auto;
-    right: auto;
+    bottom: 10;
+    left: calc(50% - 150px);
     background-color: #fff;
     border-radius: 5px;
     width: 300px;
@@ -24,7 +23,15 @@ var htmlText = `
 
 <div class="custom-barcode outer">
   <div class="modal-inner">
-  <p>hello world. This is my attempt at a modal</p>
+    <div class="modal-title">
+      <h1>Barcode Scanner</h1>
+    </div>
+    <div class="modal-content">
+      <p>hello world. This is my attempt at a modal</p>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-action">Close</button>
+    </div>
   </div>
 </div>
 </div>`;
