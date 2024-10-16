@@ -74,6 +74,12 @@ var scanner = new Html5Qrcode("barcode-video", {
   formatsToSupport: [ 14 ]
 });
 
+function startScanning() {
+  var select = document.getElementById("camera-select");
+  if(select.value !== null)
+    scanner.start(select.value, undefined, onScanSuccess);
+}
+
 Html5Qrcode.getCameras().then(function(cams) {
   var previousCam = localStorage.getItem("barcode-scanner-last-cam");
   var previousCamExists = false;
@@ -98,7 +104,7 @@ Html5Qrcode.getCameras().then(function(cams) {
     console.log("Select changed", value);
     if(scanner.isScanning)
       scanner.stop();
-    scanner.start(value, undefined, onScanSuccess);
+    startScanning();
   }
 }, function() {
   console.log("Error getting cameras");
@@ -120,6 +126,5 @@ document.getElementById("openScanner").onclick = function() {
   var wrapper = document.getElementsByClassName("custom-barcode")[0];
   wrapper.classList.remove("inactive");
 
-  if(select.value !== null)
-    scanner.start(select.value, undefined, onScanSuccess);
+  startScanning();
 }
