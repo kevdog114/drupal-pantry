@@ -55,6 +55,7 @@ var body = document.getElementsByTagName("body");
 body[0].appendChild(innerHtml.getElementsByClassName("rootdiv")[0]);
 //outer.insertAdjacentElement("afterend", htmlText);
 function onScanSuccess(decodedText, decodedResult) {
+  console.log("Scanned barcode", { decodedText: decodedText, decodedResult: decodedResult });
     document.getElementById("barcode").value = decodedText;
     document.getElementById("barcodeSubmit").click();
 }
