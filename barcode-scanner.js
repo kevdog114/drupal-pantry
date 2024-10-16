@@ -1,5 +1,5 @@
 var htmlText = `
-<div id="rootdiv">
+<div class="rootdiv">
 <h1>Hello world!!</h1>
 </div>`;
 
@@ -7,7 +7,7 @@ var innerHtml = document.createElement("html");
 innerHtml.innerHTML = htmlText;
 
 var outer = document.createElement("div");
-outer.insertAdjacentElement("afterend", innerHtml.getElementById("rootdiv"));
+outer.insertAdjacentElement("afterend", innerHtml.getElementsByClassName("rootdiv"));
 var body = document.getElementsByTagName("body");
 body[0].appendChild(outer);
 //outer.insertAdjacentElement("afterend", htmlText);
