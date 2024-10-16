@@ -10,6 +10,9 @@ var htmlText = `
     background-color: #000a;
     z-index: 10000;
   }
+  .custom-barcode.outer.inactive {
+    display: none;
+  }
   
   .custom-barcode .modal-inner {
     position: absolute;
@@ -29,7 +32,7 @@ var htmlText = `
   }
 </style>
 
-<div class="custom-barcode outer">
+<div class="custom-barcode outer inactive">
   <div class="modal-inner">
     <div class="modal-title">
       <h1>Barcode Scanner</h1>
@@ -40,7 +43,7 @@ var htmlText = `
     <div class="modal-footer">
       <select id="camera-select">
       </select>
-      <button class="modal-action mdc-button">Close</button>
+      <button class="modal-action mdc-button" id="closeScanner">Close</button>
     </div>
   </div>
 </div>
@@ -59,10 +62,8 @@ function onScanSuccess(decodedText, decodedResult) {
     document.getElementById("barcode").value = decodedText;
     document.getElementById("barcodeSubmit").click();
 }
+
 // 14 is UPC_A
-var html5QrcodeScanner = new Html5QrcodeScanner(
-	"qr-reader", { fps: 10, qrbox: 250, formatsToSupport: [ 14 ] });
-html5QrcodeScanner.render(onScanSuccess);
 document.getElementById("barcodeSubmit").onclick = function() {
   var href = window.location.href;
   var newPath = "/products-by-barcode/" + encodeURI(document.getElementById("barcode").value);
@@ -92,3 +93,18 @@ Html5Qrcode.getCameras().then(function(cams) {
 }, function() {
   console.log("Error getting cameras");
 });
+
+
+//var scripts = document.getElementsByTagName("script")
+//var currentScript = scripts[scripts.length - 1];
+//var scriptParent = currentScript.parentElement;
+
+document.getElementById("closeScanner").onclick = function() {
+  var wrapper = document.getElementsByClassName("custom-barcode")[0];
+  wrapper.classList.add("inactive");
+}
+
+document.getElementById("openScanner").onclick = function() {
+  var wrapper = document.getElementsByClassName("custom-barcode")[0];
+  wrapper.classList.remove("inactive");
+}
