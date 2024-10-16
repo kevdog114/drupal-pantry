@@ -4,7 +4,7 @@ var htmlText = `
 </div>`;
 
 var innerHtml = document.createElement("html");
-innerHtml.html(htmlText);
+innerHtml.innerHTML = htmlText;
 
 var outer = document.createElement("div");
 outer.insertAdjacentElement("afterend", innerHtml.getElementById("rootdiv"));
