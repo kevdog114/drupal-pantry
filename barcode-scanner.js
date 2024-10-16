@@ -13,7 +13,7 @@ var htmlText = `
   
   .custom-barcode .modal-inner {
     position: absolute;
-    bottom: 10;
+    bottom: 10px;
     left: calc(50% - 150px);
     background-color: #fff;
     border-radius: 5px;
@@ -35,7 +35,7 @@ var htmlText = `
       <h1>Barcode Scanner</h1>
     </div>
     <div class="modal-content">
-      <p>hello world. This is my attempt at a modal</p>
+      <div id="barcode-video"></div>
     </div>
     <div class="modal-footer">
       <button class="modal-action mdc-button">Close</button>
@@ -65,3 +65,13 @@ document.getElementById("barcodeSubmit").onclick = function() {
   var newPath = "/products-by-barcode/" + encodeURI(document.getElementById("barcode").value);
   window.location.href = href.replace(window.location.pathname, newPath);
 }
+
+var scanner = new Html5Qrcode("barcode-video", {
+  formatsToSupport: [ 14 ]
+});
+
+scanner.getCameras().then(function(cams) {
+  console.log("Cameras detected", cams);
+}, function() {
+  console.log("Error getting cameras");
+});
