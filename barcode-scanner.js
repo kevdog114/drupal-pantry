@@ -144,6 +144,6 @@ document.getElementById("openScanner").onclick = function() {
 }
 
 // set focus to input box on page load
-setTimeout(function() {
+//setTimeout(function() {
   document.getElementById("barcode").focus();
-}, 200);
+//}, 200);
