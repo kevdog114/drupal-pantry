@@ -7,7 +7,7 @@ var innerHtml = document.createElement("html");
 innerHtml.html(htmlText);
 
 var outer = document.createElement("div");
-outer.insertAdjacentElement("afterend", innerHtml.getElementById("rootdif"));
+outer.insertAdjacentElement("afterend", innerHtml.getElementById("rootdiv"));
 var body = document.getElementsByTagName("body");
 body[0].appendChild(outer);
 //outer.insertAdjacentElement("afterend", htmlText);
