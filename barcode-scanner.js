@@ -1,13 +1,13 @@
 var htmlText = `
-<div>
+<div id="rootdiv">
 <h1>Hello world!!</h1>
 </div>`;
 
-//var innerHtml = document.createElement("div");
-//innerHtml.html(htmlText);
+var innerHtml = document.createElement("html");
+innerHtml.html(htmlText);
 
 var outer = document.createElement("div");
-outer.html(htmlText);
+outer.insertAdjacentElement("afterend", innerHtml.getElementById("rootdif"));
 var body = document.getElementsByTagName("body");
 body[0].appendChild(outer);
 //outer.insertAdjacentElement("afterend", htmlText);
