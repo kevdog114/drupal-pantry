@@ -38,6 +38,8 @@ var htmlText = `
       <div id="barcode-video"></div>
     </div>
     <div class="modal-footer">
+      <select id="camera-select">
+      </select>
       <button class="modal-action mdc-button">Close</button>
     </div>
   </div>
@@ -71,7 +73,18 @@ var scanner = new Html5Qrcode("barcode-video", {
 });
 
 Html5Qrcode.getCameras().then(function(cams) {
-  console.log("Cameras detected", cams);
+  // id, label
+  var select = document.getElementById("camera-select");
+  for(var i = 0; i < cams.length; i++) {
+    var option = document.createElement("option");
+    option.innerText = cams[i].label;
+    option.value = cams[i].id;
+    select.appendChild(option);
+  }
+  select.onchange = function() {
+    var value = select.value;
+    console.log("Select changed", value);
+  }
 }, function() {
   console.log("Error getting cameras");
 });
