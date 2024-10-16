@@ -84,6 +84,9 @@ Html5Qrcode.getCameras().then(function(cams) {
   select.onchange = function() {
     var value = select.value;
     console.log("Select changed", value);
+    if(scanner.isScanning)
+      scanner.stop();
+    scanner.start(value);
   }
 }, function() {
   console.log("Error getting cameras");
