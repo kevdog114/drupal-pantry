@@ -30,7 +30,7 @@ function populateFields() {
     if(tags.length > 0)
     {
         var tag = tags[0];
-        el.value = tag;
+        el.value = decodeURIComponent(tag.value);
     }
 }
 
