@@ -106,12 +106,22 @@ async function initAndStartScanning() {
     'ean_13', 'ean_8',
     'upc_a', 'upc_e'] });
     
+var videoStream;
+
+function stopVideo() {
+  var tracksClosed = 0;
+  videoStream.getVideoTracks().forEach((videoTrack) => {
+    videoStream.removeTrack(videoTrack);
+      videoTrack.stop();
+      ++tracksClosed;
+  });
+}
 
   // Get access to the camera
   try {
-      const stream = await navigator.mediaDevices.getUserMedia({
+      videoStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment' } });
-      video.srcObject = stream;
+      video.srcObject = videoStream;
   } catch (err) {
       console.error('Error accessing the camera: ', err);
       return;
@@ -140,7 +150,8 @@ async function initAndStartScanning() {
 document.getElementById("closeScanner").onclick = function() {
   if(isScanning) {
     // stop
-    video.pause();
+    stopVideo();
+    //video.pause();
     video.removeEventListener("play");
     isScanning = false;
   }
