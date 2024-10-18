@@ -70,6 +70,7 @@ document.getElementById("barcodeSubmit").onclick = function() {
 }
 
 
+var videoStream;
 var isScanning = false;
 var discoveredCameras = false;
 async function initAndStartScanning() {
@@ -105,17 +106,7 @@ async function initAndStartScanning() {
     'qr_code', //'code_128',
     'ean_13', 'ean_8',
     'upc_a', 'upc_e'] });
-    
-var videoStream;
 
-function stopVideo() {
-  var tracksClosed = 0;
-  videoStream.getVideoTracks().forEach((videoTrack) => {
-    videoStream.removeTrack(videoTrack);
-      videoTrack.stop();
-      ++tracksClosed;
-  });
-}
 
   // Get access to the camera
   try {
@@ -144,11 +135,19 @@ function stopVideo() {
     };
 
     detectBarcodes();
-});
+  });
+} // end of initAndStartScanning()
+
+function stopVideo() {
+  var tracksClosed = 0;
+  videoStream.getVideoTracks().forEach((videoTrack) => {
+    videoStream.removeTrack(videoTrack);
+      videoTrack.stop();
+      ++tracksClosed;
+  });
 }
 
-
-document.getElementById("closeScanner").onclick = function() {
+function closeScanner() {
   if(isScanning) {
     // stop
     stopVideo();
@@ -158,6 +157,10 @@ document.getElementById("closeScanner").onclick = function() {
   }
   var wrapper = document.getElementsByClassName("custom-barcode")[0];
   wrapper.classList.add("inactive");
+}
+
+document.getElementById("closeScanner").onclick = () => {
+  closeScanner();
 }
 
 document.getElementById("openScanner").onclick = function() {
