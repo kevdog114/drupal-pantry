@@ -82,7 +82,10 @@ function startScanning() {
 var discoveredCameras = false;
 async function initAndStartScanning() {
   // Create a new BarcodeDetector instance
-  const barcodeDetector = new BarcodeDetector({ formats: ['qr_code', 'code_128'] });
+  const barcodeDetector = new BarcodeDetector({ formats: [
+    'qr_code', 'code_128',
+    'ean_13', 'ean_8',
+    'upc_a', 'upc_e'] });
 
   // Get access to the camera
   try {
