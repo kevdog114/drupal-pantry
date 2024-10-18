@@ -124,7 +124,7 @@ async function initAndStartScanning() {
     alert("Error getting user media: " + error);
   }
 
-
+  return;
 
   // Get access to the camera
   try {
