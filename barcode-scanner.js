@@ -95,6 +95,7 @@ function videoElementScanHandler() {
 var videoStream;
 var isScanning = false;
 var discoveredCameras = false;
+var select = document.getElementById("camera-select");
 
 
 function stopVideo() {
@@ -132,7 +133,6 @@ async function discoverCameras() {
     var previousCam = localStorage.getItem("barcode-scanner-last-cam");
     var previousCamExists = false;
     // id, label
-    var select = document.getElementById("camera-select");
     for(var i = 0; i < cams.length; i++) {
       if(cams[i].kind == "videoinput")
       {
@@ -146,15 +146,15 @@ async function discoverCameras() {
       }
     }
 
-    select.onchange(() => {
+    select.onchange = () => {
       var selectedCameraId = select.value;
       if(isScanning) {
         stopVideo();
         isScanning = false;
       }
-      
+
       startScanning(selectedCameraId);
-    })
+    };
   }
   catch (error)
   {
