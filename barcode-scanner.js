@@ -136,7 +136,7 @@ async function initAndStartScanning() {
             });
         } catch (err) {
             console.error('Barcode detection failed: ', err);
-            alert("Failed to detect barcode: " +)
+            alert("Failed to detect barcode: " + err);
         }
 
         // Continue detecting barcodes
