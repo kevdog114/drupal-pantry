@@ -143,8 +143,8 @@ async function initAndStartScanning() {
 
 function stopVideo() {
   videoStream.getVideoTracks().forEach((videoTrack) => {
+    videoTrack.stop();
     videoStream.removeTrack(videoTrack);
-      videoTrack.stop();
   });
   video.srcObject = null;
 }
