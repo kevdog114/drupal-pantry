@@ -139,7 +139,7 @@ async function initAndStartScanning() {
             barcodes.forEach(barcode => {
                 console.log('Detected barcode:', barcode.rawValue);
                 document.getElementById("output").innerText = barcode.rawValue;
-                alert("Detected barcode " + barcode.rawValue);
+                //alert("Detected barcode " + barcode.rawValue);
             });
         } catch (err) {
             console.error('Barcode detection failed: ', err);
