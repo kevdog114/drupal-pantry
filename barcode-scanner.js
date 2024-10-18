@@ -53,15 +53,11 @@ var htmlText = `
 </div>`;
 
 
-
-
 window['BarcodeDetector'] = barcodeDetectorPolyfill.BarcodeDetectorPolyfill
 
 var innerHtml = document.createElement("html");
 innerHtml.innerHTML = htmlText;
 
-//var outer = document.createElement("div");
-//outer.insertAdjacentElement("afterend", );
 var body = document.getElementsByTagName("body");
 body[0].appendChild(innerHtml.getElementsByClassName("rootdiv")[0]);
 const video = document.getElementById('video');
@@ -74,17 +70,7 @@ document.getElementById("barcodeSubmit").onclick = function() {
 }
 
 
-
-var scanner = new Html5Qrcode("barcode-video", {
-  formatsToSupport: [ 14 ]
-});
-
-function startScanning() {
-  var select = document.getElementById("camera-select");
-  if(select.value !== null)
-    scanner.start(select.value, undefined, onScanSuccess);
-}
-
+var isScanning = false;
 var discoveredCameras = false;
 async function initAndStartScanning() {
   // Create a new BarcodeDetector instance
@@ -134,16 +120,12 @@ async function initAndStartScanning() {
   video.addEventListener('play', () => {
     const detectBarcodes = async () => {
         try {
-            barcodeDetector
             const barcodes = await barcodeDetector.detect(video);
             barcodes.forEach(barcode => {
-                console.log('Detected barcode:', barcode.rawValue);
                 document.getElementById("output").innerText = barcode.rawValue;
-                //alert("Detected barcode " + barcode.rawValue);
             });
         } catch (err) {
             console.error('Barcode detection failed: ', err);
-            alert("Failed to detect barcode: " + err);
         }
 
         // Continue detecting barcodes
@@ -156,8 +138,12 @@ async function initAndStartScanning() {
 
 
 document.getElementById("closeScanner").onclick = function() {
-  if(scanner.isScanning)
-    scanner.stop();
+  if(isScanning) {
+    // stop
+    video.pause();
+    video.removeEventListener("play");
+    isScanning = false;
+  }
   var wrapper = document.getElementsByClassName("custom-barcode")[0];
   wrapper.classList.add("inactive");
 }
