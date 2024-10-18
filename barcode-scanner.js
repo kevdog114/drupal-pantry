@@ -52,6 +52,11 @@ var htmlText = `
 </div>
 </div>`;
 
+
+
+
+window['BarcodeDetector'] = barcodeDetectorPolyfill.BarcodeDetectorPolyfill
+
 var innerHtml = document.createElement("html");
 innerHtml.innerHTML = htmlText;
 
@@ -114,6 +119,7 @@ async function initAndStartScanning() {
     'qr_code', //'code_128',
     'ean_13', 'ean_8',
     'upc_a', 'upc_e'] });
+    
 
   // Get access to the camera
   try {
@@ -128,6 +134,7 @@ async function initAndStartScanning() {
   video.addEventListener('play', () => {
     const detectBarcodes = async () => {
         try {
+            barcodeDetector
             const barcodes = await barcodeDetector.detect(video);
             barcodes.forEach(barcode => {
                 console.log('Detected barcode:', barcode.rawValue);
