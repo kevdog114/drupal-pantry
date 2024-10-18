@@ -49,7 +49,6 @@ var htmlText = `
 </div>
 </div>`;
 
-window['BarcodeDetector'] = barcodeDetectorPolyfill.BarcodeDetectorPolyfill
 
 var innerHtml = document.createElement("html");
 innerHtml.innerHTML = htmlText;
