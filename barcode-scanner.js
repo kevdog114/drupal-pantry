@@ -74,7 +74,7 @@ document.getElementById("barcodeSubmit").onclick = function() {
 }
 
 var scanner = new Html5Qrcode("barcode-video", {
-  formatsToSupport: [ "upc_a", "qr_code" ],
+  formatsToSupport: [ 14 ],
   useBarCodeDetectorIfSupported: true,
   experimentalFeatures: {
     useBarCodeDetectorIfSupported: true
