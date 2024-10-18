@@ -122,6 +122,7 @@ function stopVideo() {
       videoStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment' } });
       video.srcObject = videoStream;
+      isScanning = true;
   } catch (err) {
       console.error('Error accessing the camera: ', err);
       return;
