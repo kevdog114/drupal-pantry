@@ -40,6 +40,7 @@ var htmlText = `
     <div class="modal-content">
       <div id="barcode-video">
         <video id="video" autoplay></video>
+        <div id="output"></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -102,6 +103,7 @@ async function initAndStartScanning() {
             const barcodes = await barcodeDetector.detect(video);
             barcodes.forEach(barcode => {
                 console.log('Detected barcode:', barcode.rawValue);
+                document.getElementById("output").innerText = barcode.rawValue;
             });
         } catch (err) {
             console.error('Barcode detection failed: ', err);
