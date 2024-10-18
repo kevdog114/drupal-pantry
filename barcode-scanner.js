@@ -95,9 +95,8 @@ function videoElementScanHandler() {
 var videoStream;
 var isScanning = false;
 var discoveredCameras = false;
-async function initAndStartScanning() {
-  // Create a new BarcodeDetector instance
 
+async function discoverCameras() {
   try {
     var testStream = await navigator.mediaDevices.getUserMedia({ video: true });
     testStream.getTracks().forEach(track => track.stop());
@@ -124,8 +123,15 @@ async function initAndStartScanning() {
   {
     alert("Error getting user media: " + error);
   }
+}
 
-  return;
+async function initAndStartScanning() {
+  // Create a new BarcodeDetector instance
+  if(!discoveredCameras)
+  {
+    discoveredCameras = true;
+    discoverCameras();
+  }
 
   // Get access to the camera
   try {
