@@ -96,6 +96,33 @@ var videoStream;
 var isScanning = false;
 var discoveredCameras = false;
 
+
+function stopVideo() {
+  videoStream.getTracks().forEach( track => track.stop())
+  video.srcObject = null;
+}
+
+async function startScanning(deviceId) {
+  // Get access to the camera
+  try {
+    videoStream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        deviceId: deviceId
+      }
+    });
+
+    video.srcObject = videoStream;
+    isScanning = true;
+  } catch (err) {
+    console.error('Error accessing the camera: ', err);
+    return;
+  }
+
+  // Detect barcodes in the video feed
+  video.addEventListener('play', videoElementScanHandler);
+}
+
+
 async function discoverCameras() {
   try {
     var testStream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -118,6 +145,16 @@ async function discoverCameras() {
         select.appendChild(option);
       }
     }
+
+    select.onchange(() => {
+      var selectedCameraId = select.value;
+      if(isScanning) {
+        stopVideo();
+        isScanning = false;
+      }
+      
+      startScanning(selectedCameraId);
+    })
   }
   catch (error)
   {
@@ -133,29 +170,9 @@ async function initAndStartScanning() {
     discoverCameras();
   }
 
-  // Get access to the camera
-  try {
-      videoStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' } });
-      video.srcObject = videoStream;
-      isScanning = true;
-  } catch (err) {
-      console.error('Error accessing the camera: ', err);
-      return;
-  }
-
-  // Detect barcodes in the video feed
-  video.addEventListener('play', videoElementScanHandler);
+  startScanning(select.value);
 } // end of initAndStartScanning()
 
-function stopVideo() {
-  //videoStream.getVideoTracks().forEach((videoTrack) => {
-  //  videoTrack.stop();
-  //  videoStream.removeTrack(videoTrack);
-  //});
-  videoStream.getTracks().forEach( track => track.stop())
-  video.srcObject = null;
-}
 
 function closeScanner() {
   if(isScanning) {
