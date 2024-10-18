@@ -142,12 +142,11 @@ async function initAndStartScanning() {
 } // end of initAndStartScanning()
 
 function stopVideo() {
-  var tracksClosed = 0;
   videoStream.getVideoTracks().forEach((videoTrack) => {
     videoStream.removeTrack(videoTrack);
       videoTrack.stop();
-      ++tracksClosed;
   });
+  video.srcObject = null;
 }
 
 function closeScanner() {
