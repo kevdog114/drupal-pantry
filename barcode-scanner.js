@@ -99,7 +99,8 @@ async function initAndStartScanning() {
   // Create a new BarcodeDetector instance
 
   try {
-    await navigator.mediaDevices.getUserMedia({ video: true });
+    var testStream = await navigator.mediaDevices.getUserMedia({ video: true });
+    testStream.getTracks().forEach(track => track.stop());
     var cams = await navigator.mediaDevices.enumerateDevices();
     //alert("Found " + tmp.length + " camera devices. First is: " + tmp[0].label);
     var previousCam = localStorage.getItem("barcode-scanner-last-cam");
