@@ -38,7 +38,9 @@ var htmlText = `
       <h1>Barcode Scanner</h1>
     </div>
     <div class="modal-content">
-      <div id="barcode-video"></div>
+      <div id="barcode-video">
+        <video id="video" autoplay></video>
+      </div>
     </div>
     <div class="modal-footer">
       <select id="camera-select">
@@ -56,21 +58,16 @@ innerHtml.innerHTML = htmlText;
 //outer.insertAdjacentElement("afterend", );
 var body = document.getElementsByTagName("body");
 body[0].appendChild(innerHtml.getElementsByClassName("rootdiv")[0]);
-//outer.insertAdjacentElement("afterend", htmlText);
-function onScanSuccess(decodedText, decodedResult) {
-  console.log("Scanned barcode", { decodedText: decodedText, decodedResult: decodedResult });
-    document.getElementById("barcode").value = decodedText;
-    document.getElementById("barcodeSubmit").click();
-}
+const video = document.getElementById('video');
 
 // 14 is UPC_A
 document.getElementById("barcodeSubmit").onclick = function() {
   var newPath = "/products-by-barcode/" + encodeURI(document.getElementById("barcode").value);
-  
   var l = window.location;
-  //window.location.href = href.replace(window.location.pathname, newPath);
   window.location.href = l.origin + newPath;
 }
+
+
 
 var scanner = new Html5Qrcode("barcode-video", {
   formatsToSupport: [ 14 ]
@@ -83,51 +80,38 @@ function startScanning() {
 }
 
 var discoveredCameras = false;
-function initAndStartScanning() {
-  if(!discoveredCameras)
-  {
-    discoveredCameras = true;
-    Html5Qrcode.getCameras().then(function(cams) {
-      var previousCam = localStorage.getItem("barcode-scanner-last-cam");
-      var previousCamExists = false;
-      // id, label
-      var select = document.getElementById("camera-select");
-      for(var i = 0; i < cams.length; i++) {
-        var option = document.createElement("option");
-        option.innerText = cams[i].label;
-        option.value = cams[i].id;
-        if(previousCam !== null && cams[i].id == previousCam)
-          previousCamExists = true;
-    
-        select.appendChild(option);
-      }
-    
-      if(previousCamExists)
-        select.value = previousCam;
-    
-      startScanning();
-      select.onchange = function() {
-        var value = select.value;
-        localStorage.setItem("barcode-scanner-last-cam", value);
-        console.log("Select changed", value);
-        if(scanner.isScanning)
-          scanner.stop();
-        startScanning();
-      }
-    }, function() {
-      console.log("Error getting cameras");
-    });
-  }
-  else {
-    startScanning();
-  }
+async function initAndStartScanning() {
+  // Create a new BarcodeDetector instance
+  const barcodeDetector = new BarcodeDetector({ formats: ['qr_code', 'code_128'] });
 
+  // Get access to the camera
+  try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      video.srcObject = stream;
+  } catch (err) {
+      console.error('Error accessing the camera: ', err);
+      return;
+  }
+  // Detect barcodes in the video feed
+  video.addEventListener('play', () => {
+    const detectBarcodes = async () => {
+        try {
+            const barcodes = await barcodeDetector.detect(video);
+            barcodes.forEach(barcode => {
+                console.log('Detected barcode:', barcode.rawValue);
+            });
+        } catch (err) {
+            console.error('Barcode detection failed: ', err);
+        }
+
+        // Continue detecting barcodes
+        requestAnimationFrame(detectBarcodes);
+    };
+
+    detectBarcodes();
+});
 }
 
-
-//var scripts = document.getElementsByTagName("script")
-//var currentScript = scripts[scripts.length - 1];
-//var scriptParent = currentScript.parentElement;
 
 document.getElementById("closeScanner").onclick = function() {
   if(scanner.isScanning)
