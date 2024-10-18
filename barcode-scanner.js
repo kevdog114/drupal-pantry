@@ -146,8 +146,12 @@ async function discoverCameras() {
       }
     }
 
+    if(previousCamExists)
+      select.value = previousCam;
+
     select.onchange = () => {
       var selectedCameraId = select.value;
+      localStorage.setItem("barcode-scanner-last-cam", selectedCameraId);
       if(isScanning) {
         stopVideo();
         isScanning = false;
