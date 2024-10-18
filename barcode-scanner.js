@@ -69,6 +69,28 @@ document.getElementById("barcodeSubmit").onclick = function() {
   window.location.href = l.origin + newPath;
 }
 
+const barcodeDetector = new BarcodeDetector({ formats: [
+  'qr_code', //'code_128',
+  'ean_13', 'ean_8',
+  'upc_a', 'upc_e'] });
+
+function videoElementScanHandler() {
+  const detectBarcodes = async () => {
+      try {
+          const barcodes = await barcodeDetector.detect(video);
+          barcodes.forEach(barcode => {
+              document.getElementById("output").innerText = barcode.rawValue;
+          });
+      } catch (err) {
+          console.error('Barcode detection failed: ', err);
+      }
+
+      // Continue detecting barcodes
+      requestAnimationFrame(detectBarcodes);
+  };
+
+  detectBarcodes();
+}
 
 var videoStream;
 var isScanning = false;
@@ -102,10 +124,6 @@ async function initAndStartScanning() {
     alert("Error getting user media: " + error);
   }
 
-  const barcodeDetector = new BarcodeDetector({ formats: [
-    'qr_code', //'code_128',
-    'ean_13', 'ean_8',
-    'upc_a', 'upc_e'] });
 
 
   // Get access to the camera
@@ -118,24 +136,9 @@ async function initAndStartScanning() {
       console.error('Error accessing the camera: ', err);
       return;
   }
+
   // Detect barcodes in the video feed
-  video.addEventListener('play', () => {
-    const detectBarcodes = async () => {
-        try {
-            const barcodes = await barcodeDetector.detect(video);
-            barcodes.forEach(barcode => {
-                document.getElementById("output").innerText = barcode.rawValue;
-            });
-        } catch (err) {
-            console.error('Barcode detection failed: ', err);
-        }
-
-        // Continue detecting barcodes
-        requestAnimationFrame(detectBarcodes);
-    };
-
-    detectBarcodes();
-  });
+  video.addEventListener('play', videoElementScanHandler);
 } // end of initAndStartScanning()
 
 function stopVideo() {
@@ -152,7 +155,7 @@ function closeScanner() {
     // stop
     stopVideo();
     //video.pause();
-    video.removeEventListener("play");
+    video.removeEventListener("play", videoElementScanHandler);
     isScanning = false;
   }
   var wrapper = document.getElementsByClassName("custom-barcode")[0];
