@@ -171,7 +171,7 @@ async function initAndStartScanning() {
   if(!discoveredCameras)
   {
     discoveredCameras = true;
-    discoverCameras();
+    await discoverCameras();
   }
 
   startScanning(select.value);
