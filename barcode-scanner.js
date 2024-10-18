@@ -118,7 +118,7 @@ async function initAndStartScanning() {
   // Get access to the camera
   try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: true});
+        video: { facingMode: 'environment' } });
       video.srcObject = stream;
   } catch (err) {
       console.error('Error accessing the camera: ', err);
@@ -136,7 +136,7 @@ async function initAndStartScanning() {
             });
         } catch (err) {
             console.error('Barcode detection failed: ', err);
-            alert("Failed to detect barcode: " + err);
+            alert("Failed to detect barcode: " +)
         }
 
         // Continue detecting barcodes
