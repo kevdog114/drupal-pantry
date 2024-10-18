@@ -39,7 +39,7 @@ var htmlText = `
     </div>
     <div class="modal-content">
       <div id="barcode-video">
-        <video id="video" autoplay></video>
+        <video playsinline id="video" autoplay></video>
         <div id="output"></div>
       </div>
     </div>
@@ -86,8 +86,24 @@ async function initAndStartScanning() {
 
   try {
     await navigator.mediaDevices.getUserMedia({ video: true });
-    var tmp = await navigator.mediaDevices.enumerateDevices();
-    alert("Found " + tmp.length + " camera devices. First is: " + tmp[0].label);
+    var cams = await navigator.mediaDevices.enumerateDevices();
+    //alert("Found " + tmp.length + " camera devices. First is: " + tmp[0].label);
+    var previousCam = localStorage.getItem("barcode-scanner-last-cam");
+    var previousCamExists = false;
+    // id, label
+    var select = document.getElementById("camera-select");
+    for(var i = 0; i < cams.length; i++) {
+      if(cams[i].kind == "videoinput")
+      {
+        var option = document.createElement("option");
+        option.innerText = cams[i].label;
+        option.value = cams[i].id;
+        if(previousCam !== null && cams[i].id == previousCam)
+          previousCamExists = true;
+      
+        select.appendChild(option);
+      }
+    }
   }
   catch (error)
   {
@@ -102,7 +118,7 @@ async function initAndStartScanning() {
   // Get access to the camera
   try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' } });
+        video: true});
       video.srcObject = stream;
   } catch (err) {
       console.error('Error accessing the camera: ', err);
