@@ -83,14 +83,26 @@ function startScanning() {
 var discoveredCameras = false;
 async function initAndStartScanning() {
   // Create a new BarcodeDetector instance
+
+  try {
+    await navigator.mediaDevices.getUserMedia({ video: true });
+    var tmp = await navigator.mediaDevices.enumerateDevices();
+    alert("Found " + tmp.length + " camera devices. First is: " + tmp[0].label);
+  }
+  catch (error)
+  {
+    alert("Error getting user media: " + error);
+  }
+
   const barcodeDetector = new BarcodeDetector({ formats: [
-    'qr_code', 'code_128',
+    'qr_code', //'code_128',
     'ean_13', 'ean_8',
     'upc_a', 'upc_e'] });
 
   // Get access to the camera
   try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' } });
       video.srcObject = stream;
   } catch (err) {
       console.error('Error accessing the camera: ', err);
