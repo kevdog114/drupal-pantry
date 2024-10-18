@@ -138,7 +138,7 @@ async function discoverCameras() {
       {
         var option = document.createElement("option");
         option.innerText = cams[i].label;
-        option.value = cams[i].id;
+        option.value = cams[i].deviceId;
         if(previousCam !== null && cams[i].id == previousCam)
           previousCamExists = true;
       
