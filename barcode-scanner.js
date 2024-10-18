@@ -62,12 +62,13 @@ var body = document.getElementsByTagName("body");
 body[0].appendChild(innerHtml.getElementsByClassName("rootdiv")[0]);
 const video = document.getElementById('video');
 
-// 14 is UPC_A
-document.getElementById("barcodeSubmit").onclick = function() {
+function searchByBarcode() {
   var newPath = "/products-by-barcode/" + encodeURI(document.getElementById("barcode").value);
   var l = window.location;
   window.location.href = l.origin + newPath;
 }
+// 14 is UPC_A
+document.getElementById("barcodeSubmit").onclick = searchByBarcode;
 
 const barcodeDetector = new BarcodeDetector({ formats: [
   'qr_code', //'code_128',
@@ -79,7 +80,9 @@ function videoElementScanHandler() {
       try {
           const barcodes = await barcodeDetector.detect(video);
           barcodes.forEach(barcode => {
-              document.getElementById("output").innerText = barcode.rawValue;
+            //document.getElementById("output").innerText = barcode.rawValue;
+            document.getElementById("barcode").value = barcode.rawValue;
+            searchByBarcode();
           });
       } catch (err) {
           console.error('Barcode detection failed: ', err);
