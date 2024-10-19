@@ -45,6 +45,10 @@ var addStock = byClass("custom-product-add-stock");
 var stock = byClass("custom-product-stock");
 var images = byClass("custom-product-images");
 
+var container = title.parent;
+container.append(layoutElementHtml.getElementsByClassName("rootdiv")[0]);
+
+
 moveTo("product-title", title);
 moveTo("stock", stock);
 moveTo("barcodes", barcodes);
@@ -58,6 +62,3 @@ addStock: addStock,
 stock: stock,
 images: images
 });
-
-var container = title.parent;
-container.append(layoutElementHtml.getElementsByClassName("rootdiv")[0]);
