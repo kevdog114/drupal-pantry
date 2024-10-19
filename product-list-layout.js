@@ -54,7 +54,7 @@ for(var i = 0; i < items.length; i++)
             
             if(dateDiff <= 0)
                 item.classList.add("text-bg-danger");
-            else if(datediff < 30)
+            else if(dateDiff < 30)
                 item.classList.add("text-bg-warning");
         }
     }
