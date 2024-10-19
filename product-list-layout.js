@@ -52,7 +52,7 @@ for(var i = 0; i < items.length; i++)
 
             var dateDiff = Math.round((expDateAsDate - new Date()) / (1000 * 60 * 60 * 24));
             
-            if(datediff <= 0)
+            if(dateDiff <= 0)
                 item.classList.add("text-bg-danger");
             else if(datediff < 30)
                 item.classList.add("text-bg-warning");
