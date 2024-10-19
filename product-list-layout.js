@@ -6,5 +6,7 @@ for(var i = 0; i < items.length; i++)
 {
     var item = items[i];
     item.classList.add("card");
-    item.getElementsByTagName("img")[0].classList.add("card-img-top");
+    var img = item.getElementsByTagName("img");
+    if(img.length > 0)
+        img[0].classList.add("card-img-top");
 }
