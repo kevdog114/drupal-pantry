@@ -6,9 +6,11 @@ var layoutHtml = `
   <div class="row">
     <div class="col-sm-8">
       <div class="stock"></div>
+      <div class="images"></div>
     </div>
     <div class="col-sm-4">
       <div class="barcodes"></div>
+      <div class="related"></div>
     </div>
   </div>
 </div>
@@ -37,11 +39,11 @@ var moveTo = function(key, el) {
     }
 }
 
-var title = byClass("custom-product-title");
+var addStock = byClass("custom-product-add-stock");
 var editLink = byClass("custom-product-edit");
+var title = byClass("custom-product-title");
 var relatedProducts = byClass("custom-product-related");
 var barcodes = byClass("custom-product-barcodes");
-var addStock = byClass("custom-product-add-stock");
 var stock = byClass("custom-product-stock");
 var images = byClass("custom-product-images");
 
@@ -52,6 +54,8 @@ container.append(layoutElementHtml.getElementsByClassName("rootdiv")[0]);
 moveTo("product-title", title);
 moveTo("stock", stock);
 moveTo("barcodes", barcodes);
+moveTo("related", relatedProducts);
+moveTo("images", images);
 
 console.log("HTML objects", {
   title: title,
