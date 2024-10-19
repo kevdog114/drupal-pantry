@@ -45,7 +45,7 @@ var addStock = byClass("custom-product-add-stock");
 var stock = byClass("custom-product-stock");
 var images = byClass("custom-product-images");
 
-var container = title.parent;
+var container = title.parentElement;
 container.append(layoutElementHtml.getElementsByClassName("rootdiv")[0]);
 
 
