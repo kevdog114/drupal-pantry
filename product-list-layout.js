@@ -46,7 +46,7 @@ for(var i = 0; i < items.length; i++)
     if(exp.length > 0)
     {
         var expDate = exp[0].getElementsByTagName("time");
-        if(expDate)
+        if(expDate.length > 0)
         {
             var expDateAsDate = new Date(expDate[0].attributes.datetime.value);
 
