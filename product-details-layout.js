@@ -63,3 +63,4 @@ images.remove();
 
 var carouselElement = CreateCarousel(images.getElementsByTagName("img"));
 moveTo("images", carouselElement, false);
+const carousel = new bootstrap.Carousel("#product-detail-photo-carousel");
