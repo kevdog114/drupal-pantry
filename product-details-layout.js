@@ -1,4 +1,4 @@
-import { ProductDetailsCarousel } from "./product-details-carousel"
+import { ProductDetailsCarousel } from "./product-details-carousel.js"
 
 var layoutHtml = `
 <div class="rootdiv custom-product-layout">
