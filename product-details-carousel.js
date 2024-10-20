@@ -23,7 +23,7 @@ export function CreateCarousel(imageTags) {
     var element = GetAsElement(html, "rootdiv");
     var imageWrapper = element.getElementsByClassName("carousel-inner")[0];
 
-    for(var i = 0; i < imageTags.length; i++) {
+    for(var i = imageTags.length - 1; i >= 0; i--) {
         var carouselItem = document.createElement("div");
         carouselItem.classList.add("carousel-item");
         if(i == 0) carouselItem.classList.add("active");
@@ -32,7 +32,8 @@ export function CreateCarousel(imageTags) {
         imageTags[i].classList.add("w-100");
         imageTags[i].removeAttribute("width");
         imageTags[i].removeAttribute("height");
-        imageWrapper.append(carouselItem);
+        imageWrapper.prepend(carouselItem);
+        
     }
 
     return element;
