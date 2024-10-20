@@ -1,6 +1,6 @@
 import { GetAsElement } from "./html-helper.js"
 var html = `
-<div id="carouselExample" class="carousel slide rootdiv">
+<div id="product-detail-photo-carousel" class="carousel slide rootdiv">
   <div class="carousel-inner">
 
   </div>
