@@ -1,4 +1,4 @@
-import { ProductDetailsCarousel } from "./product-details-carousel.js"
+import { CreateCarousel } from "./product-details-carousel.js"
 
 var layoutHtml = `
 <div class="rootdiv custom-product-layout">
@@ -32,11 +32,12 @@ var byClass = function(key) {
     else return null;
 }
 
-var moveTo = function(key, el) {
+var moveTo = function(key, el, removeFromExisting) {
     var outer = document.getElementsByClassName("custom-product-layout")[0];
     var dest = outer.getElementsByClassName(key);
     if(dest.length > 0 && el != null){
-        el.remove();
+        if(removeFromExisting) el.remove();
+        
         dest[0].append(el);
     }
 }
@@ -52,12 +53,13 @@ var images = byClass("custom-product-images");
 var container = title.parentElement;
 container.append(layoutElementHtml.getElementsByClassName("rootdiv")[0]);
 
+moveTo("product-title", title, true);
+moveTo("stock", stock, true);
+moveTo("barcodes", barcodes, true);
+moveTo("related", relatedProducts, true);
+//moveTo("images", images);
+images.remove();
 
-moveTo("product-title", title);
-moveTo("stock", stock);
-moveTo("barcodes", barcodes);
-moveTo("related", relatedProducts);
-moveTo("images", images);
 
-
-ProductDetailsCarousel();
+var carouselElement = CreateCarousel(images.getElementsByTagName("img"));
+moveTo("images", carouselElement, false);
