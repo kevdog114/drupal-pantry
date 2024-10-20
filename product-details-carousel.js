@@ -2,9 +2,7 @@ import { GetAsElement } from "./html-helper.js"
 var html = `
 <div id="carouselExample" class="carousel slide rootdiv">
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="..." class="d-block w-100">
-    </div>
+
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -17,6 +15,10 @@ var html = `
 </div>
 `;
 
+/*    <div class="carousel-item active">
+      <img src="..." class="d-block w-100">
+    </div>
+*/
 export function CreateCarousel(imageTags) {
     var element = GetAsElement(html, "rootdiv");
     var imageWrapper = element.getElementsByClassName("carousel-inner")[0];
