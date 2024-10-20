@@ -27,11 +27,12 @@ export function CreateCarousel(imageTags) {
         var carouselItem = document.createElement("div");
         carouselItem.classList.add("carousel-item");
         if(i == 0) carouselItem.classList.add("active");
-        carouselItem.append(imageTags[i]);
         imageTags[i].classList.add("d-block");
         imageTags[i].classList.add("w-100");
         imageTags[i].removeAttribute("width");
         imageTags[i].removeAttribute("height");
+        
+        carouselItem.append(imageTags[i]);
         imageWrapper.prepend(carouselItem);
         
     }
