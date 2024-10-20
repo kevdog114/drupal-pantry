@@ -1,3 +1,5 @@
+import { ProductDetailsCarousel } from "./product-details-carousel"
+
 var layoutHtml = `
 <div class="rootdiv custom-product-layout">
   <div id="product-title">
@@ -57,22 +59,5 @@ moveTo("barcodes", barcodes);
 moveTo("related", relatedProducts);
 moveTo("images", images);
 
-console.log("HTML objects", {
-    title: title,
-    editLink: editLink,
-    relatedProducts: relatedProducts,
-    barcodes: barcodes,
-    addStock: addStock,
-    stock: stock,
-    images: images
-});
 
-var scripts = document.getElementsByTagName('script');
-var index = scripts.length - 1;
-var thisScript = scripts[index];
-var scriptSource = thisScript.attributes.src.value;
-var chainLoadSrc = scriptSource.replace("product-details-layout.js", "product-details-carousel.js");
-
-var chainLoadElement = document.createElement("script");
-chainLoadElement.attributes.src = chainLoadSrc;
-document.append(chainLoadElement);
+ProductDetailsCarousel();

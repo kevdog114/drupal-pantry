@@ -1,1 +1,4 @@
-console.log("Chain load worked!");
+
+export function ProductDetailsCarousel() {
+    console.log("Chain load worked!");
+}
