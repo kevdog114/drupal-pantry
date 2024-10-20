@@ -4,11 +4,11 @@ var html = `
   <div class="carousel-inner">
 
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+  <button class="carousel-control-prev" type="button" data-bs-target="#product-detail-photo-carousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+  <button class="carousel-control-next" type="button" data-bs-target="#product-detail-photo-carousel" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
@@ -31,7 +31,7 @@ export function CreateCarousel(imageTags) {
         imageTags[i].classList.add("w-100");
         imageTags[i].removeAttribute("width");
         imageTags[i].removeAttribute("height");
-        
+
         carouselItem.append(imageTags[i]);
         imageWrapper.prepend(carouselItem);
         
