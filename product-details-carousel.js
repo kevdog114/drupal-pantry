@@ -28,8 +28,8 @@ export function CreateCarousel(imageTags) {
         carouselItem.append(imageTags[i]);
         imageTags[i].classList.add("d-block");
         imageTags[i].classList.add("w-100");
-        imageTags[i].attributes.width = undefined;
-        imageTags[i].attributes.height = undefined;
+        imageTags[i].removeAttribute("width");
+        imageTags[i].removeAttribute("height");
         imageWrapper.append(carouselItem);
     }
 
