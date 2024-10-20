@@ -19,7 +19,7 @@ var html = `
 
 export function CreateCarousel(imageTags) {
     var element = GetAsElement(html, "rootdiv");
-    var imageWrapper = element.getElementsByClassName("carousel-inner");
+    var imageWrapper = element.getElementsByClassName("carousel-inner")[0];
 
     for(var i = 0; i < imageTags.length; i++) {
         var carouselItem = document.createElement("div");
