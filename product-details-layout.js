@@ -69,26 +69,23 @@ for(var i = 0; i < labelLinks.length; i++)
   var dueDate = link.getAttribute("data-due-date");
   var quant = link.getAttribute("data-quantity");
 
-  var formData = new FormData();
-  formData.append("text", "na");
-  formData.append("font_family", "DejaVu+Serif+(Book)");
-  formData.append("font_size", 70);
-  formData.append("label_size", 62);
-  formData.append("align", "center");
-  formData.append("margin_top", 24);
-  formData.append("margin_bottom", 45);
-  formData.append("margin_left", 35);
-  formData.append("margin_right", 35);
-  formData.append("product", productTitle);
-  formData.append("duedate", "Use by: " + dueDate + "  Qty: " + quant);
-  formData.append("grocycode", "ST-" + stockId);
-
-  
-  //link.setAttribute("href", "https://pantry.klschaefer.com/api/label" + (new URLSearchParams(formData)).toString());
   link.onclick = function() {
-    fetch("https://pantry.klschaefer.com/api/label?" + (new URLSearchParams(formData)).toString(), {
+    fetch("https://pantry.klschaefer.com/api/label", {
       method: 'POST',
-      body: formData
+      body: new URLSearchParams({
+        "text": "na",
+        "font_family": "DejaVu+Serif+(Book)",
+        "font_size": 70,
+        "label_size": 62,
+        "align": "center",
+        "margin_top": 45,
+        "margin_bottom": 45,
+        "margin_left": 35,
+        "margin_right": 35,
+        "product": productTitle,
+        "duedate": "Use by: " + dueDate + "  Qty: " + quant,
+        "grocycode": "ST-" + stockId
+      })
     })
   }
 }
