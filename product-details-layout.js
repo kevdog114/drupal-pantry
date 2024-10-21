@@ -60,6 +60,37 @@ moveTo("related", relatedProducts, true);
 //moveTo("images", images);
 images.remove();
 
+// set up stock print links
+var labelLinks = document.getElementsByClassName("label-print-trigger");
+for(var i = 0; i < labelLinks.length; i++)
+{
+  var link = labelLinks[i];
+  var stockId = link.getAttribute("data-stock-id");
+  var productTitle = link.getAttribute("data-stock-product-title");
+  var dueDate = link.getAttribute("data-due-date");
+  var quant = link.getAttribute("data-quantity");
+
+  var formData = new FormData();
+  formData.append("text", "na");
+  formData.append("font_family", "DejaVu+Serif+(Book)");
+  formData.append("font_size", 70);
+  formData.append("label_size", 62);
+  formData.append("align", "center");
+  formData.append("margin_top", 24);
+  formData.append("margin_bottom", 45);
+  formData.append("margin_left", 35);
+  formData.append("margin_right", 35);
+  formData.append("product", productTitle);
+  formData.append("duedate", "Use by: " + dueDate + "  Qty: " + quant);
+  formData.append("grocycode", "ST-" + stockId);
+  
+  link.onclick = function() {
+    fetch("http://10.36.188.137/api/print/grocy", {
+      method: 'POST',
+      body: formData
+    })
+  }
+}
 
 var carouselElement = CreateCarousel(images.getElementsByTagName("img"));
 moveTo("images", carouselElement, false);
