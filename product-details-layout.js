@@ -74,7 +74,7 @@ for(var i = 0; i < labelLinks.length; i++)
       method: 'POST',
       body: new URLSearchParams({
         "text": "na",
-        "font_family": "DejaVu+Serif+(Book)",
+        "font_family": "DejaVu Serif (Book)",
         "font_size": 70,
         "label_size": 62,
         "align": "center",
