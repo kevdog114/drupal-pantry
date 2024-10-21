@@ -84,13 +84,13 @@ for(var i = 0; i < labelLinks.length; i++)
   formData.append("grocycode", "ST-" + stockId);
 
   
-  link.setAttribute("href", "http://10.36.188.137/api/print/grocy" + (new URLSearchParams(formData)).toString());
-  /*link.onclick = function() {
-    fetch("http://10.36.188.137/api/print/grocy?" + (new URLSearchParams(formData)).toString(), {
+  //link.setAttribute("href", "https://pantry.klschaefer.com/api/label" + (new URLSearchParams(formData)).toString());
+  link.onclick = function() {
+    fetch("https://pantry.klschaefer.com/api/label?" + (new URLSearchParams(formData)).toString(), {
       method: 'POST',
       body: formData
     })
-  }*/
+  }
 }
 
 
