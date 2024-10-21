@@ -59,16 +59,9 @@ moveTo("barcodes", barcodes, true);
 moveTo("related", relatedProducts, true);
 //moveTo("images", images);
 
-// set up stock print links
-var labelLinks = document.getElementsByClassName("label-print-trigger");
-for(var i = 0; i < labelLinks.length; i++)
-{
-  var link = labelLinks[i];
-  var stockId = link.getAttribute("data-stock-id");
-  var productTitle = link.getAttribute("data-stock-product-title");
-  var dueDate = link.getAttribute("data-due-date");
-  var quant = link.getAttribute("data-quantity");
-
+function labelClickHandler(link) {
+  console.log(link);
+  return;
   link.onclick = () => {
     fetch("https://pantry.klschaefer.com/api/label", {
       method: 'POST',
@@ -95,6 +88,19 @@ for(var i = 0; i < labelLinks.length; i++)
       alert("There was a problem printing the label. Make sure the label printer is nearby.");
     });
   }
+}
+
+// set up stock print links
+var labelLinks = document.getElementsByClassName("label-print-trigger");
+for(var i = 0; i < labelLinks.length; i++)
+{
+  var link = labelLinks[i];
+  var stockId = link.getAttribute("data-stock-id");
+  var productTitle = link.getAttribute("data-stock-product-title");
+  var dueDate = link.getAttribute("data-due-date");
+  var quant = link.getAttribute("data-quantity");
+
+  labelClickHandler(link);
 }
 
 
