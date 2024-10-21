@@ -63,7 +63,12 @@ body[0].appendChild(innerHtml.getElementsByClassName("rootdiv")[0]);
 const video = document.getElementById('video');
 
 function searchByBarcode() {
-  var newPath = "/products-by-barcode/" + encodeURI(document.getElementById("barcode").value);
+  var barcodeValue = document.getElementById("barcode").value
+  var newPath = "/products-by-barcode/" + encodeURI(barcodeValue);
+  if(barcodeValue.startsWith("ST-"))
+  {
+    newPath = "/node/" + encodeURI(barcodeValue.replace("ST-", ""));
+  }
   var l = window.location;
   window.location.href = l.origin + newPath;
 }
