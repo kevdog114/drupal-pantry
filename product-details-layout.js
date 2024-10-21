@@ -69,7 +69,7 @@ for(var i = 0; i < labelLinks.length; i++)
   var dueDate = link.getAttribute("data-due-date");
   var quant = link.getAttribute("data-quantity");
 
-  link.onclick = function() {
+  link.onclick = () => {
     fetch("https://pantry.klschaefer.com/api/label", {
       method: 'POST',
       body: new URLSearchParams({
