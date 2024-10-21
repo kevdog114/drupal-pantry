@@ -78,15 +78,22 @@ for(var i = 0; i < labelLinks.length; i++)
         "font_size": 70,
         "label_size": 62,
         "align": "center",
-        "margin_top": 45,
-        "margin_bottom": 45,
-        "margin_left": 35,
-        "margin_right": 35,
+        "margin_top": 10,
+        "margin_bottom": 20,
+        "margin_left": 20,
+        "margin_right": 20,
         "product": productTitle,
         "duedate": "Use by: " + dueDate + "  Qty: " + quant,
         "grocycode": "ST-" + stockId
       })
-    })
+    }).then(() => {
+      var check = document.createElement("span");
+      check.innerHTML = "&check;";
+      link.parentElement.prepend(check);
+      setTimeout(() => check.remove(), 5000);
+    }).catch(() => {
+      alert("There was a problem printing the label. Make sure the label printer is nearby.");
+    });
   }
 }
 
