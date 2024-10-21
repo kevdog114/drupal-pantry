@@ -63,6 +63,11 @@ function labelClickHandler(link) {
   //console.log(link);
   link.onclick = () => {
     
+    var stockId = link.getAttribute("data-stock-id");
+    var productTitle = link.getAttribute("data-stock-product-title");
+    var dueDate = link.getAttribute("data-due-date");
+    var quant = link.getAttribute("data-quantity");
+
     fetch("https://pantry.klschaefer.com/api/label", {
       method: 'POST',
       body: new URLSearchParams({
@@ -95,10 +100,6 @@ var labelLinks = document.getElementsByClassName("label-print-trigger");
 for(var i = 0; i < labelLinks.length; i++)
 {
   var link = labelLinks[i];
-  var stockId = link.getAttribute("data-stock-id");
-  var productTitle = link.getAttribute("data-stock-product-title");
-  var dueDate = link.getAttribute("data-due-date");
-  var quant = link.getAttribute("data-quantity");
 
   labelClickHandler(link);
 }
