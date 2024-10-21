@@ -58,7 +58,6 @@ moveTo("stock", stock, true);
 moveTo("barcodes", barcodes, true);
 moveTo("related", relatedProducts, true);
 //moveTo("images", images);
-images.remove();
 
 // set up stock print links
 var labelLinks = document.getElementsByClassName("label-print-trigger");
@@ -83,7 +82,7 @@ for(var i = 0; i < labelLinks.length; i++)
   formData.append("product", productTitle);
   formData.append("duedate", "Use by: " + dueDate + "  Qty: " + quant);
   formData.append("grocycode", "ST-" + stockId);
-  
+
   link.onclick = function() {
     fetch("http://10.36.188.137/api/print/grocy", {
       method: 'POST',
@@ -92,6 +91,11 @@ for(var i = 0; i < labelLinks.length; i++)
   }
 }
 
-var carouselElement = CreateCarousel(images.getElementsByTagName("img"));
-moveTo("images", carouselElement, false);
-const carousel = new bootstrap.Carousel("#product-detail-photo-carousel");
+
+if(images != null) {
+  images.remove();
+  
+  var carouselElement = CreateCarousel(images.getElementsByTagName("img"));
+  moveTo("images", carouselElement, false);
+  const carousel = new bootstrap.Carousel("#product-detail-photo-carousel");
+}
