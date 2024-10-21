@@ -62,8 +62,7 @@ moveTo("related", relatedProducts, true);
 function labelClickHandler(link) {
   //console.log(link);
   link.onclick = () => {
-    console.log(link);
-    return;
+    
     fetch("https://pantry.klschaefer.com/api/label", {
       method: 'POST',
       body: new URLSearchParams({
