@@ -199,14 +199,24 @@ function closeScanner() {
 }
 
 document.getElementById("closeScanner").onclick = () => {
+  localStorage.removeItem("barcode-scanner-autostart");
   closeScanner();
 }
 
-document.getElementById("openScanner").onclick = function() {
+var openScannerClickEventHandler = function() {
   var wrapper = document.getElementsByClassName("custom-barcode")[0];
   wrapper.classList.remove("inactive");
 
+  localStorage.setItem("barcode-scanner-autostart", "true");
+
   initAndStartScanning();
+}
+
+document.getElementById("openScanner").onclick = openScannerClickEventHandler
+
+if(localStorage.getItem("barcode-scanner-autostart") === "true")
+{
+  openScannerClickEventHandler();
 }
 
 // set focus to input box on page load
