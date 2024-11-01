@@ -110,10 +110,11 @@ var currentProduct = null;
 
 var setSpinner = function(element, isVisible) {
   var spinner = element.getElementsByClassName("spinner-border");
+  console.log("")
   if(!isVisible && spinner.length > 0)
     spinner.remove();
 
-  if(spinner.length == 0)
+  if(spinner.length == 0 && isVisible == true)
   {
     spinner = document.createElement("span");
     spinner.classList.add("spinner-border", "spinner-border-sm");
