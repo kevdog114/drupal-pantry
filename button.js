@@ -1,8 +1,8 @@
 
 export class Button
 {
-    #refreshLabel;
-    #clickHandler;
+    refreshLabel = () => {};
+    clickHandler = () => {};
 
     /**
      * @type { HTMLElement }
@@ -35,20 +35,20 @@ export class Button
       }
 
     OnClick = async function() {
-        console.log("click handler", this.#clickHandler);
-        await this.#clickHandler(this);
+        console.log("click handler", this.clickHandler);
+        await this.clickHandler(this);
     }
 
     RefreshLabel = async function() {
-        await this.#refreshLabel(this);
+        await this.refreshLabel(this);
     }
 
     /**
      *
      */
     constructor(refreshLabel, clickHandler) {
-        this.#refreshLabel = refreshLabel;
-        this.#clickHandler = clickHandler;
+        this.refreshLabel = refreshLabel;
+        this.clickHandler = clickHandler;
     }
 }
 
