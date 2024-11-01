@@ -74,10 +74,11 @@ export class ProductAPI {
     GetCurrentProductId = function() {
         var classes = document.body.classList;
         var classStart = "page-products-";
+        var excludeClassStart = "page-products-by";
         for(var i = 0; i < classes.length; i++)
         {
             var c = classes[i];
-            if(c.startsWith(classStart))
+            if(c.startsWith(classStart) && !c.startsWith(excludeClassStart))
             {
                 return Number(c.substring(classStart.length));
             }
