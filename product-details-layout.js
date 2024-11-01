@@ -110,11 +110,11 @@ var api = new ProductAPI();
 var currentProduct = null;
 
 var buttonsToAdd = [
-  new Button(async b => {
-    b.label = "test get";
-  }, async b => {
-    console.log("Get product", await api.GetById(api.GetCurrentProductId()));
-  }),
+//  new Button(async b => {
+//    b.label = "test get";
+//  }, async b => {
+//    console.log("Get product", await api.GetById(api.GetCurrentProductId()));
+//  }),
   new Button(async b => {
     if(!b.Element) return;
     if(currentProduct != null && currentProduct.field_shopping_list == true)

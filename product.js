@@ -82,6 +82,11 @@ export class ProductAPI {
                 return Number(c.substring(classStart.length));
             }
         }
+
+        // try to find if on the barcode page
+        var elementId = document.getElementsByClassName("product-id-for-barcode");
+        if(elementId.length > 0)
+            return Number(elementId[0].innerText);
         return null;
     }
 
