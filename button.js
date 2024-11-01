@@ -46,9 +46,11 @@ export class Button
     /**
      *
      */
-    constructor(refreshLabel, clickHandler) {
-        this.refreshLabel = refreshLabel;
-        this.clickHandler = clickHandler;
+    constructor(refreshLabel_, clickHandler_) {
+        console.log("Refresh label", refreshlabel_);
+        console.log("Click", clickHandler_);
+        this.refreshLabel = refreshLabel_;
+        this.clickHandler = clickHandler_;
     }
 }
 
