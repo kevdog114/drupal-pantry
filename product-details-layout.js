@@ -131,7 +131,7 @@ var buttonsToAdd = [
     console.log("Before update", currentProduct);
     currentProduct = await api.PatchUpdate(157, currentProduct);
     console.log("After update", currentProduct);
-    currentProduct.SetSpinner(false);
+    b.SetSpinner(false);
     await b.RefreshLabel();
   }),
 ];
