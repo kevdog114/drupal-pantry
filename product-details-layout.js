@@ -43,7 +43,7 @@ var moveTo = function(key, el, removeFromExisting) {
     }
 }
 
-var addStock = byClass("custom-product-add-stock");
+var productButtons = document.getElementsByClassName("custom-product-add-stock")[0];
 var editLink = byClass("custom-product-edit");
 var title = byClass("custom-product-title");
 var relatedProducts = byClass("custom-product-related");
@@ -105,22 +105,49 @@ for(var i = 0; i < labelLinks.length; i++)
   labelClickHandler(link);
 }
 
+var api = new ProductAPI();
+var currentProduct = null;
 
+var setSpinner = function(element, isVisible) {
+  var spinner = element.getElementsByClassName("spinner-border");
+  if(!isVisible && spinner.length > 0)
+    spinner.remove();
+
+  if(spinner.length == 0)
+  {
+    spinner = document.createElement("span");
+    spinner.classList.add("spinner-border", "spinner-border-sm");
+    element.insertBefore(spinner, element.firstChild);
+  }
+}
 
 var buttonsToAdd = [
   {
-    label: "test get",
+    element: null,
+    updateLabel: function() {
+      if(!this.element) return;
+      this.element.innerText = "test get";
+    },
     onClick: async function() {
       var api = new ProductAPI();
-      console.log("Get product", await api.GetById(157));
+      console.log("Get product", await api.GetById(api.GetCurrentProductId()));
     }
   },
   {
-    label: "Add to shopping list",
+    element: null,
+    updateLabel: function() {
+      if(!this.element) return;
+      if(currentProduct != null && currentProduct.field_shopping_list == true)
+        this.element.innerText = "Remove from shopping list";
+      else
+        this.element.innerText = "Add to shopping list";
+
+      setSpinner(this.element, currentProduct == null);
+    },
     onClick: async function() {
 
       var api = new ProductAPI();
-      var p = await api.GetById(157);
+      var p = await api.GetById(api.GetCurrentProductId());
       p.field_shopping_list = !p.field_shopping_list;
       p.UpdateProperties.field_shopping_list = true;
       console.log("Before update", p);
@@ -128,16 +155,21 @@ var buttonsToAdd = [
       console.log("After update", p);
     }
   }
-]
+];
+
+api.GetById(api.GetCurrentProductId()).then(p => {
+  currentProduct = p;
+  buttonsToAdd.forEach(a => a.updateLabel());
+});
 
 for(var i = 0; i < buttonsToAdd.length; i++)
 {
   var btn = document.createElement("a");
   btn.classList.add("btn", "btn-primary");
-  btn.innerText = buttonsToAdd[i].label;
   btn.onclick = buttonsToAdd[i].onClick;
-
-  addStock.append(btn);
+  buttonsToAdd[i].element = btn;
+  buttonsToAdd[i].updateLabel();
+  productButtons.append(btn);
 }
 
 

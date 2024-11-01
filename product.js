@@ -69,6 +69,23 @@ export class ProductAPI {
     }
 
     /**
+     * @returns { number }
+     */
+    GetCurrentProductId = function() {
+        var classes = document.body.classList;
+        var classStart = "page-products-";
+        for(var i = 0; i < classes.length; i++)
+        {
+            var c = classes[i];
+            if(c.startsWith(classStart))
+            {
+                return Number(c.substring(classStart.length));
+            }
+        }
+        return null;
+    }
+
+    /**
      * 
      * @param { number } id
      * @returns { Product } 
