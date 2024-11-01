@@ -1,4 +1,5 @@
 import { CreateCarousel } from "./product-details-carousel.js"
+import { Product, ProductAPI } from "./product.js";
 
 var layoutHtml = `
 <div class="rootdiv custom-product-layout">
@@ -104,35 +105,27 @@ for(var i = 0; i < labelLinks.length; i++)
   labelClickHandler(link);
 }
 
-var getToken = async function() {
-  var result = await fetch("/session/token?_format=json", { method: "GET" });
-  return await result.text();
-}
+
 
 var buttonsToAdd = [
   {
+    label: "test get",
+    onClick: async function() {
+      var api = new ProductAPI();
+      console.log("Get product", await api.GetById(157));
+    }
+  },
+  {
     label: "Add to shopping list",
     onClick: async function() {
-      var result = await fetch("/node/157?_format=json", {
-        body: JSON.stringify({
-          "type": [
-            {
-              "target_id": "product",
-            }
-          ],
-          "field_shopping_list": [
-            {
-              "value": true
-            }
-          ]
-        }),
-        headers: {
-          'content-type': 'application/json',
-          'X-CSRF-Token': await getToken()
-        },
-        method: "PATCH"
-      });
-      console.log(result);
+
+      var api = new ProductAPI();
+      var p = await api.GetById(157);
+      p.field_shopping_list = !p.field_shopping_list;
+      p.UpdateProperties.field_shopping_list = true;
+      console.log("Before update", p);
+      p = await api.PatchUpdate(157, p);
+      console.log("After update", p);
     }
   }
 ]
