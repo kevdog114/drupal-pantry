@@ -136,7 +136,7 @@ var buttonsToAdd = [
   },
   {
     element: null,
-    updateLabel: function() {
+    updateLabel: () => {
       if(!this.element) return;
       if(currentProduct != null && currentProduct.field_shopping_list == true)
         this.element.innerText = "Remove from shopping list";
@@ -145,7 +145,7 @@ var buttonsToAdd = [
 
       setSpinner(this.element, currentProduct == null);
     },
-    onClick: async function() {
+    onClick: async () => {
       setSpinner(this.element, true);
       var p = await api.GetById(api.GetCurrentProductId());
       p.field_shopping_list = !p.field_shopping_list;
