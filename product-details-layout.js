@@ -104,6 +104,11 @@ for(var i = 0; i < labelLinks.length; i++)
   labelClickHandler(link);
 }
 
+var getToken = async function() {
+  var result = await fetch("/session/token?_format=json", { method: "GET" });
+  return await result.text();
+}
+
 var buttonsToAdd = [
   {
     label: "Add to shopping list",
@@ -117,7 +122,8 @@ var buttonsToAdd = [
           ]
         },
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'X-CSRF-Token': await getToken()
         },
         method: "PATCH"
       });
