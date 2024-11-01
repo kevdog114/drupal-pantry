@@ -24,7 +24,7 @@ export class Button
         var spinner = this.Element.getElementsByClassName("spinner-border");
 
         if(!isVisible && spinner.length > 0)
-          spinner.remove();
+          spinner[0].remove();
       
         if(spinner.length == 0 && isVisible == true)
         {
