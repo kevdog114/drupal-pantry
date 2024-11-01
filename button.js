@@ -1,6 +1,9 @@
 
 export class Button
 {
+    #refreshLabel;
+    #clickHandler;
+
     /**
      * @type { HTMLElement }
      */
@@ -32,6 +35,7 @@ export class Button
       }
 
     OnClick = async function() {
+        console.log("click handler", this.#clickHandler);
         await this.#clickHandler(this);
     }
 
@@ -39,8 +43,6 @@ export class Button
         await this.#refreshLabel(this);
     }
 
-    #refreshLabel;
-    #clickHandler;
     /**
      *
      */
