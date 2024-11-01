@@ -131,7 +131,7 @@ for(var i = 0; i < buttonsToAdd.length; i++)
   var btn = document.createElement("a");
   btn.classList.add("btn", "btn-primary");
   btn.innerText = buttonsToAdd[i].label;
-  btn.onclick = buttonsToAdd[i].onclick;
+  btn.onclick = buttonsToAdd[i].onClick;
 
   addStock.append(btn);
 }
