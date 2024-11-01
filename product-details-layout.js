@@ -129,7 +129,7 @@ var buttonsToAdd = [
     currentProduct.field_shopping_list = !currentProduct.field_shopping_list;
     currentProduct.UpdateProperties.field_shopping_list = true;
     console.log("Before update", currentProduct);
-    currentProduct = await api.PatchUpdate(157, currentProduct);
+    currentProduct = await api.PatchUpdate(api.GetCurrentProductId(), currentProduct);
     console.log("After update", currentProduct);
     b.SetSpinner(false);
     await b.RefreshLabel();
