@@ -125,13 +125,13 @@ var buttonsToAdd = [
     b.SetSpinner(currentProduct == null);
   }, async b => {
     b.SetSpinner(true);
-    var p = await api.GetById(api.GetCurrentProductId());
-    p.field_shopping_list = !p.field_shopping_list;
-    p.UpdateProperties.field_shopping_list = true;
-    console.log("Before update", p);
-    p = await api.PatchUpdate(157, p);
-    console.log("After update", p);
-    b.SetSpinner(false);
+    currentProduct = await api.GetById(api.GetCurrentProductId());
+    currentProduct.field_shopping_list = !currentProduct.field_shopping_list;
+    currentProduct.UpdateProperties.field_shopping_list = true;
+    console.log("Before update", currentProduct);
+    currentProduct = await api.PatchUpdate(157, currentProduct);
+    console.log("After update", currentProduct);
+    currentProduct.SetSpinner(false);
     await b.RefreshLabel();
   }),
 ];
