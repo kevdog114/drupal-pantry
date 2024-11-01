@@ -20,7 +20,7 @@ export class Button
         this.Element.innerText = a;
     }
 
-    SetSpinner = function(isVisible) {
+    SetSpinner = (isVisible) => {
         var spinner = this.Element.getElementsByClassName("spinner-border");
 
         if(!isVisible && spinner.length > 0)
@@ -34,12 +34,12 @@ export class Button
         }
       }
 
-    OnClick = async function() {
+    OnClick = async () => {
         console.log("click handler", this.clickHandler);
         await this.clickHandler(this);
     }
 
-    RefreshLabel = async function() {
+    RefreshLabel = async () => {
         await this.refreshLabel(this);
     }
 
