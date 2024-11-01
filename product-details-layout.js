@@ -115,6 +115,11 @@ var buttonsToAdd = [
     onClick: async function() {
       var result = await fetch("/node/157?_format=json", {
         body: JSON.stringify({
+          "type": [
+            {
+              "target_id": "product",
+            }
+          ],
           "field_shopping_list": [
             {
               "value": true
