@@ -1,5 +1,6 @@
 import { CreateCarousel } from "./product-details-carousel.js"
 import { Product, ProductAPI } from "./product.js";
+import { Button } from "./button.js";
 
 var layoutHtml = `
 <div class="rootdiv custom-product-layout">
@@ -108,69 +109,45 @@ for(var i = 0; i < labelLinks.length; i++)
 var api = new ProductAPI();
 var currentProduct = null;
 
-var setSpinner = function(element, isVisible) {
-  var spinner = element.getElementsByClassName("spinner-border");
-  console.log("")
-  if(!isVisible && spinner.length > 0)
-    spinner.remove();
-
-  if(spinner.length == 0 && isVisible == true)
-  {
-    spinner = document.createElement("span");
-    spinner.classList.add("spinner-border", "spinner-border-sm");
-    element.insertBefore(spinner, element.firstChild);
-  }
-}
-
 var buttonsToAdd = [
-  {
-    element: null,
-    updateLabel: function() {
-      if(!this.element) return;
-      this.element.innerText = "test get";
-    },
-    onClick: async function() {
-      var api = new ProductAPI();
-      console.log("Get product", await api.GetById(api.GetCurrentProductId()));
-    }
-  },
-  {
-    element: null,
-    updateLabel: () => {
-      if(!this.element) return;
-      if(currentProduct != null && currentProduct.field_shopping_list == true)
-        this.element.innerText = "Remove from shopping list";
-      else
-        this.element.innerText = "Add to shopping list";
+  new Button(async b => {
+    b.label = "test get";
+  }, async b => {
+    console.log("Get product", await api.GetById(api.GetCurrentProductId()));
+  }),
+  new Button(async b => {
+    if(!b.Element) return;
+    if(currentProduct != null && currentProduct.field_shopping_list == true)
+      b.label = "Remove from shopping list";
+    else
+      b.label = "Add to shopping list";
 
-      setSpinner(this.element, currentProduct == null);
-    },
-    onClick: async () => {
-      setSpinner(this.element, true);
-      var p = await api.GetById(api.GetCurrentProductId());
-      p.field_shopping_list = !p.field_shopping_list;
-      p.UpdateProperties.field_shopping_list = true;
-      console.log("Before update", p);
-      p = await api.PatchUpdate(157, p);
-      console.log("After update", p);
-      setSpinner(this.element, false);
-      this.updateLabel();
-    }
-  }
+    b.SetSpinner(this.element, currentProduct == null);
+  }, async b => {
+    b.SetSpinner(this.element, true);
+    var p = await api.GetById(api.GetCurrentProductId());
+    p.field_shopping_list = !p.field_shopping_list;
+    p.UpdateProperties.field_shopping_list = true;
+    console.log("Before update", p);
+    p = await api.PatchUpdate(157, p);
+    console.log("After update", p);
+    b.SetSpinner(this.element, false);
+    await b.RefreshLabel();
+  }),
 ];
 
 api.GetById(api.GetCurrentProductId()).then(p => {
   currentProduct = p;
-  buttonsToAdd.forEach(a => a.updateLabel());
+  buttonsToAdd.forEach(a => a.RefreshLabel());
 });
 
 for(var i = 0; i < buttonsToAdd.length; i++)
 {
   var btn = document.createElement("a");
   btn.classList.add("btn", "btn-primary");
+  buttonsToAdd[i].Element = btn;
   btn.onclick = buttonsToAdd[i].onClick;
-  buttonsToAdd[i].element = btn;
-  buttonsToAdd[i].updateLabel();
+  buttonsToAdd[i].RefreshLabel();
   productButtons.append(btn);
 }
 
