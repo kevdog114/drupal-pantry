@@ -114,13 +114,13 @@ var buttonsToAdd = [
     label: "Add to shopping list",
     onClick: async function() {
       var result = await fetch("/node/157?_format=json", {
-        body: {
+        body: JSON.stringify({
           "field_shopping_list": [
             {
               "value": true
             }
           ]
-        },
+        }),
         headers: {
           'content-type': 'application/json',
           'X-CSRF-Token': await getToken()
