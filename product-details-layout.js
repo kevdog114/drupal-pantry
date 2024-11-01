@@ -122,16 +122,16 @@ var buttonsToAdd = [
     else
       b.label = "Add to shopping list";
 
-    b.SetSpinner(this.element, currentProduct == null);
+    b.SetSpinner(currentProduct == null);
   }, async b => {
-    b.SetSpinner(this.element, true);
+    b.SetSpinner(true);
     var p = await api.GetById(api.GetCurrentProductId());
     p.field_shopping_list = !p.field_shopping_list;
     p.UpdateProperties.field_shopping_list = true;
     console.log("Before update", p);
     p = await api.PatchUpdate(157, p);
     console.log("After update", p);
-    b.SetSpinner(this.element, false);
+    b.SetSpinner(false);
     await b.RefreshLabel();
   }),
 ];
