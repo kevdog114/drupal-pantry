@@ -146,14 +146,15 @@ var buttonsToAdd = [
       setSpinner(this.element, currentProduct == null);
     },
     onClick: async function() {
-
-      var api = new ProductAPI();
+      setSpinner(this.element, true);
       var p = await api.GetById(api.GetCurrentProductId());
       p.field_shopping_list = !p.field_shopping_list;
       p.UpdateProperties.field_shopping_list = true;
       console.log("Before update", p);
       p = await api.PatchUpdate(157, p);
       console.log("After update", p);
+      setSpinner(this.element, false);
+      this.updateLabel();
     }
   }
 ];
