@@ -108,7 +108,7 @@ var buttonsToAdd = [
   {
     label: "Add to shopping list",
     onClick: async function() {
-      var result = await fetch("node/157?_format=json", {
+      var result = await fetch("/node/157?_format=json", {
         body: {
           "field_shopping_list": [
             {
