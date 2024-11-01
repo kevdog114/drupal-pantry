@@ -104,6 +104,38 @@ for(var i = 0; i < labelLinks.length; i++)
   labelClickHandler(link);
 }
 
+var buttonsToAdd = [
+  {
+    label: "Add to shopping list",
+    onClick: async function() {
+      var result = await fetch("node/157?_format=json", {
+        body: {
+          "field_shopping_list": [
+            {
+              "value": true
+            }
+          ]
+        },
+        headers: {
+          'content-type': 'application/hal+json'
+        },
+        method: "PATCH"
+      });
+      console.log(result);
+    }
+  }
+]
+
+for(var i = 0; i < buttonsToAdd.length; i++)
+{
+  var btn = document.createElement("a");
+  btn.classList.add("btn", "btn-primary");
+  btn.innerText = buttonsToAdd[i].label;
+  btn.onclick = buttonsToAdd[i].onclick;
+
+  addStock.append(btn);
+}
+
 
 if(images != null) {
   images.remove();
