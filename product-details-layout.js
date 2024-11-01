@@ -146,7 +146,7 @@ for(var i = 0; i < buttonsToAdd.length; i++)
   var btn = document.createElement("a");
   btn.classList.add("btn", "btn-primary");
   buttonsToAdd[i].Element = btn;
-  btn.onclick = buttonsToAdd[i].onClick;
+  btn.onclick = buttonsToAdd[i].OnClick;
   buttonsToAdd[i].RefreshLabel();
   productButtons.append(btn);
 }
