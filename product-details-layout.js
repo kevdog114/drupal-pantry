@@ -108,7 +108,7 @@ var buttonsToAdd = [
   {
     label: "Add to shopping list",
     onClick: async function() {
-      var result = await fetch("/node/157?_format=hal_json", {
+      var result = await fetch("/node/157?_format=json", {
         body: {
           "field_shopping_list": [
             {
@@ -117,7 +117,7 @@ var buttonsToAdd = [
           ]
         },
         headers: {
-          'content-type': 'application/hal+json'
+          'content-type': 'application/json'
         },
         method: "PATCH"
       });
