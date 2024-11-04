@@ -21,7 +21,7 @@ export class Product {
     field_product_text_barcode = [];
 
     FromApi = function(api) {
-        if(api.field_shopping_list.length > 0)
+        if(api.field_shopping_list?.length > 0)
             this.field_shopping_list = api.field_shopping_list[0].value;
 
         this.field_product_text_barcode = api.field_product_text_barcode.map(a => a.value);
