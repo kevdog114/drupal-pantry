@@ -1,6 +1,7 @@
 import { CreateCarousel } from "./product-details-carousel.js"
 import { Product, ProductAPI } from "./product.js";
 import { Button } from "./button.js";
+import { StockItem, StockItemAPI } from "./StockItem.js";
 
 var layoutHtml = `
 <div class="rootdiv custom-product-layout">
@@ -99,21 +100,31 @@ function labelClickHandler(link) {
 
 function addExtraStockButtons(link) {
 
-  var btnDecrement = new Button(async b => {
-    b.label = "Use 1";
-  }, async b => {
-    var stockId = link.getAttribute("data-stock-id");
-    var productTitle = link.getAttribute("data-stock-product-title");
-    var dueDate = link.getAttribute("data-due-date");
-    var quant = link.getAttribute("data-quantity");
-    alert("Clicked " + stockId);
-  });
-
-  var btnElement = document.createElement("a");
-  btnDecrement.Element = btnElement;
-  btnElement.onclick = btnDecrement.OnClick;
-  btnDecrement.RefreshLabel();
-  link.parentElement.append(btnElement);
+  var quant = link.getAttribute("data-quantity");
+  quant = Number.parseFloat(quant);
+  if(quant >= 1 && Number.isInteger(quant))
+  {
+    var btnDecrement = new Button(async b => {
+      b.label = "Use 1";
+    }, async b => {
+      var stockId = link.getAttribute("data-stock-id");
+      var productTitle = link.getAttribute("data-stock-product-title");
+      var dueDate = link.getAttribute("data-due-date");
+      alert("Clicked " + stockId);
+      var stockAPI = new StockItemAPI();
+      var update = await stockAPI.GetById(stockId);
+      update.field_unit_amount -= 1;
+      update.UpdateProperties.field_unit_amount = true;
+      await stockAPI.PatchUpdate(stockId, update);
+      
+    });
+  
+    var btnElement = document.createElement("a");
+    btnDecrement.Element = btnElement;
+    btnElement.onclick = btnDecrement.OnClick;
+    btnDecrement.RefreshLabel();
+    link.parentElement.append(btnElement);
+  }
 }
 
 // set up stock print links
