@@ -107,16 +107,21 @@ function addExtraStockButtons(link) {
     var btnDecrement = new Button(async b => {
       b.label = "Use 1";
     }, async b => {
+      b.SetSpinner(true);
       var stockId = link.getAttribute("data-stock-id");
       var productTitle = link.getAttribute("data-stock-product-title");
       var dueDate = link.getAttribute("data-due-date");
-      alert("Clicked " + stockId);
+      //alert("Clicked " + stockId);
       var stockAPI = new StockItemAPI();
       var update = await stockAPI.GetById(stockId);
       update.field_unit_amount -= 1;
       update.UpdateProperties.field_unit_amount = true;
-      await stockAPI.PatchUpdate(stockId, update);
-      
+      update = await stockAPI.PatchUpdate(stockId, update);
+
+      var unitAmountCell = link.closest("tr").getElementsByClassName("views-field-field-unit-amount")[0];
+      unitAmountCell.innerText = update.field_unit_amount.toFixed(2);
+      link.setAttribute("data-quantity", unitAmountCell.innerText);
+      b.SetSpinner(false);
     });
   
     var btnElement = document.createElement("a");

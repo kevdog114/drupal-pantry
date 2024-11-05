@@ -19,7 +19,7 @@ export class StockItem {
     field_is_frozen;
 
     /**
-     * @type {Date}
+     * @type {string}
      */
     field_stock_due_date;
 
@@ -29,15 +29,17 @@ export class StockItem {
     field_unit_amount;
     
     FromApi = function (api) {
-        var getSingleVal = function (api, key) {
+        var getSingleVal = function (api, key, formatter) {
+            if(formatter == undefined) formatter = (a) => a;
+
             if (api[key] != null && api[key].length > 0)
-                return api[key][0].value;
+                return formatter(api[key][0].value);
         }
 
         this.field_almost_out = getSingleVal(api, 'field_almost_out');
         this.field_is_frozen = getSingleVal(api, "field_is_frozen");
         this.field_stock_due_date = getSingleVal(api, "field_stock_due_date");
-        this.field_unit_amount = getSingleVal(api, "field_unit_amount");
+        this.field_unit_amount = getSingleVal(api, "field_unit_amount", Number.parseFloat);
     }
 }
 
