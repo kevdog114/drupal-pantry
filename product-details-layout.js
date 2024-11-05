@@ -97,13 +97,7 @@ function labelClickHandler(link) {
   }
 }
 
-// set up stock print links
-var labelLinks = document.getElementsByClassName("label-print-trigger");
-for(var i = 0; i < labelLinks.length; i++)
-{
-  var link = labelLinks[i];
-
-  labelClickHandler(link);
+function addExtraStockButtons(link) {
 
   var btnDecrement = new Button(async b => {
     b.label = "Use 1";
@@ -120,6 +114,17 @@ for(var i = 0; i < labelLinks.length; i++)
   btnElement.onclick = btnDecrement.OnClick;
   btnDecrement.RefreshLabel();
   link.parentElement.append(btnElement);
+}
+
+// set up stock print links
+var labelLinks = document.getElementsByClassName("label-print-trigger");
+for(var i = 0; i < labelLinks.length; i++)
+{
+  var link = labelLinks[i];
+
+  labelClickHandler(link);
+
+  addExtraStockButtons(link);
 }
 
 var api = new ProductAPI();
