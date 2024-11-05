@@ -104,6 +104,22 @@ for(var i = 0; i < labelLinks.length; i++)
   var link = labelLinks[i];
 
   labelClickHandler(link);
+
+  var btnDecrement = new Button(async b => {
+    b.label = "Use 1";
+  }, async b => {
+    var stockId = link.getAttribute("data-stock-id");
+    var productTitle = link.getAttribute("data-stock-product-title");
+    var dueDate = link.getAttribute("data-due-date");
+    var quant = link.getAttribute("data-quantity");
+    alert("Clicked " + stockId);
+  });
+
+  var btnElement = document.createElement("a");
+  btnDecrement.Element = btnElement;
+  btnElement.onclick = btnDecrement.OnClick;
+  btnDecrement.RefreshLabel();
+  labelLinks.parentElement.append(btnElement);
 }
 
 var api = new ProductAPI();
