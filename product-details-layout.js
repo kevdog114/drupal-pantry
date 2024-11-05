@@ -141,6 +141,11 @@ for(var i = 0; i < labelLinks.length; i++)
   labelClickHandler(link);
 
   addExtraStockButtons(link);
+
+  // format labels as buttons
+  var rowLinks = link.closest("tr").getElementsByTagName("a");
+  for(var j = 0; j < rowLinks.length; j++)
+    rowLinks[j].classList.add("btn", "btn-primary");
 }
 
 var api = new ProductAPI();
