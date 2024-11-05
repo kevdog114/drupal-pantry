@@ -119,7 +119,7 @@ for(var i = 0; i < labelLinks.length; i++)
   btnDecrement.Element = btnElement;
   btnElement.onclick = btnDecrement.OnClick;
   btnDecrement.RefreshLabel();
-  labelLinks.parentElement.append(btnElement);
+  link.parentElement.append(btnElement);
 }
 
 var api = new ProductAPI();
