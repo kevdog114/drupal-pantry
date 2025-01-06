@@ -13,7 +13,11 @@ document.addEventListener('keydown', function(event) {
         inp.addEventListener("keydown", function(e) {
             if(e.code == 'Enter')
             {
-                searchByBarcode(inp.value);
+                var barcodeValue = inp.value;
+                if(barcodeValue.startsWith("/"))
+                    barcodeValue = barcodeValue.substring(1);
+
+                searchByBarcode(barcodeValue);
                 inp.remove();
             }
         });
