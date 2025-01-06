@@ -7,8 +7,8 @@ document.addEventListener('keydown', function(event) {
     if(event.key == '/' && (event.target == null || event.target.tagName.toLowerCase() != 'input'))
     {
         var inp = document.createElement("input");
-        inp.style.display = "none";
-        document.body.appendChild(inp);
+        //inp.style.display = "none";
+        document.body.append(inp);
         inp.focus();
         inp.addEventListener("keydown", function(e) {
             if(e.code == 'Enter')
